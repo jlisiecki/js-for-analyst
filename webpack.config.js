@@ -3,12 +3,14 @@ const path = require('path');
 module.exports = {
     entry: './src/js/script.js',
     output: {
-        path: path.resolve(__dirname, 'public'),
+        publicPath: '/dist',
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
+
     devServer: {
         static: {
-            directory: path.join(__dirname, 'public')
+            directory: path.join(__dirname)
         },
         compress: true,
         port: 8080,
@@ -17,7 +19,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.m?js$/,
+                test: /\.m?js$/i,
                 exclude: /(node_modules|bower_components)/,
                 use: {
                     loader: 'babel-loader',
@@ -28,14 +30,7 @@ module.exports = {
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: [
-                    // Creates `style` nodes from JS strings
-                    'style-loader',
-                    // Translates CSS into CommonJS
-                    'css-loader',
-                    // Compiles Sass to CSS
-                    'sass-loader'
-                ]
+                use: ['style-loader', 'css-loader', 'sass-loader']
             }
         ]
     }
